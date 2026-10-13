@@ -7,9 +7,12 @@ import random
 class Asteroid(CircleShape):
     def __init__(self, x:float, y: float, radius: float) -> None:
         super().__init__(x, y, radius)
+        self.icon = pygame.image.load("asteroid.png")
 
     def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, LINE_WIDTH)
+        scaled_icon = pygame.transform.scale(self.icon, (self.radius*2, self.radius*2))
+        rect = scaled_icon.get_rect(center=self.position)
+        screen.blit(scaled_icon, rect)
 
     def update(self, dt):
         self.position += self.velocity * dt
